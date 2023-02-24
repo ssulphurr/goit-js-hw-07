@@ -1,4 +1,4 @@
-import { galleryItems } from './gallery-items.js';
+import { galleryItems } from "./gallery-items.js";
 // Change code below this line
 
 console.log(galleryItems);
@@ -6,14 +6,19 @@ console.log(galleryItems);
 // markup
 
 const galleryItemsMarkup = galleryItems
-.map(({preview, original, description}) => 
-    `
+  .map(
+    ({ preview, original, description }) =>
+      `
     <a class="gallery__item" href="${original}">
     <img class="gallery__image" src="${preview}" alt="${description}" />
     </a>
-    `)
-    .join("");
+    `
+  )
+  .join("");
 
-const galleryEl = document.querySelector(".gallery")
+const galleryEl = document.querySelector(".gallery");
+galleryEl.insertAdjacentHTML("afterbegin", galleryItemsMarkup);
 
-galleryEl.insertAdjacentHTML("afterbegin", galleryItemsMarkup)
+// simple lightbox
+
+let lightbox = new SimpleLightbox(".gallery a", {});
