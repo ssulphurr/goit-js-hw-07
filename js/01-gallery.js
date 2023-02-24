@@ -34,7 +34,8 @@ function clickFunction(event) {
   if(event.target.nodeName !== "IMG") {
     return;
   }
-
-  const imgSourse = event.target.dataset.source;
-  console.log(imgSourse)
+  const instance = basicLightbox.create(
+    `<img src="${event.target.dataset.source}" width="100%" height="100%">`
+  )
+  instance.show()
 }
