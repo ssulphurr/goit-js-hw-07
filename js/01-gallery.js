@@ -7,7 +7,7 @@ console.log(galleryItems);
 
 const galleryItemsMarkup = galleryItems
   .map(
-    ({preview, original, description}) =>
+    ({ preview, original, description }) =>
       `<div class="gallery__item">
         <a class="gallery__link" href="${original}">
           <img
@@ -31,11 +31,25 @@ galleryEl.addEventListener("click", clickFunction);
 function clickFunction(event) {
   event.preventDefault();
 
-  if(event.target.nodeName !== "IMG") {
+  if (event.target.nodeName !== "IMG") {
     return;
   }
   const instance = basicLightbox.create(
     `<img src="${event.target.dataset.source}" width="100%" height="100%">`
-  )
-  instance.show()
+  );
+  instance.show();
+
+  // close modal after Escape is pressed
+  onClose: escapePressed(instance);
+}
+
+function escapePressed(instance) {
+  document.addEventListener("keydown", (event) => {
+    event.preventDefault();
+
+    if (event.code === "Escape") {
+      console.log("Ecsape was pressed");
+      instance.close();
+    }
+  });
 }
