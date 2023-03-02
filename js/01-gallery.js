@@ -35,21 +35,25 @@ function clickFunction(event) {
     return;
   }
   const instance = basicLightbox.create(
-    `<img src="${event.target.dataset.source}" width="100%" height="100%">`
+    `<img src="${event.target.dataset.source}" width="100%" height="100%">`,
+    {
+      onShow: () => {
+        document.addEventListener("keydown", escapePressed);
+      },
+      onClose: () => {
+        document.removeEventListener("keydown", escapePressed);
+      },
+    }
   );
   instance.show();
 
   // close modal after Escape is pressed
-  onClose: escapePressed(instance);
-}
-
-function escapePressed(instance) {
-  document.addEventListener("keydown", (event) => {
+  function escapePressed(event) {
     event.preventDefault();
 
     if (event.code === "Escape") {
       console.log("Ecsape was pressed");
       instance.close();
     }
-  });
+  }
 }
